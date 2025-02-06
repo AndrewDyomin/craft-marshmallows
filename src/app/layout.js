@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import MenuButton from "./components/menuButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +25,13 @@ export default function RootLayout({ children }) {
           <div className={"container"}>
             <h1 className={"logo"}>Зефір на замовлення</h1>
             <nav className={"nav"}>
-              <a href="#about">Про нас</a>
-              <a href="#products">Продукція</a>
-              <a href="#contact">Контакти</a>
+              <a href=".//#about">Про нас</a>
+              <a href=".//#products">Продукція</a>
+              <a href=".//#contact">Контакти</a>
             </nav>
+          </div>
+          <div className={"menuBtn"}>
+            <MenuButton/>
           </div>
         </header>
         {children}
