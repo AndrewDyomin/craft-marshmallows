@@ -1,4 +1,4 @@
-import { SignupFormSchema } from '../lib/definitions'
+import { SignupFormSchema } from '../../lib/definitions'
  
 export async function signup(state, formData) {
   // Validate form fields
@@ -16,4 +16,5 @@ export async function signup(state, formData) {
   }
  
   // Call the provider or db to create a user...
+  console.log('Call the provider or db to create a user...')
 }

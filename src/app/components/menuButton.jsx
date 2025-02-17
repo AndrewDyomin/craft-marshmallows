@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
+import { signup } from "../actions/auth";
+import { Formik, Form, Field } from "formik";
 
 const customStyles = {
   content: {
@@ -105,6 +107,9 @@ export default function MenuButton() {
     };
   }, [modalIsOpen, modalAuth]);
 
+  const registerHendler = () => {};
+  const loginHendler = () => {};
+
   return (
     <>
       <button onClick={() => setIsOpen(true)} style={customStyles.menuButton}>
@@ -145,55 +150,139 @@ export default function MenuButton() {
           </nav>
         </div>
       </Modal>
-      <Modal
+      <Modal // register - login modal
         isOpen={modalAuth}
         onRequestClose={() => setModalAuth(false)}
         style={authModalStyles}
         ariaHideApp={false}
       >
-        <form style={authModalStyles.form}>
-          <input
-            style={{
-              ...authModalStyles.input,
-              border: isFocused
-                ? "2px solid rgb(208, 95, 180)"
-                : "2px solid rgba(208, 95, 180, 0.6)",
-              boxShadow: isFocused
-                ? "0px 4px 10px rgba(208, 95, 180, 0.3)"
-                : "none",
+        {modalAuth === "register" ? (
+          <Formik // registration form
+            initialValues={{
+              name: "",
+              password: "",
+              email: "",
             }}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            placeholder="Email"
-          />
-          <input
-            style={authModalStyles.input}
-            placeholder="Пароль"
-            type="password"
-          />
-          {modalAuth === "register" && (
-            <input
-              style={authModalStyles.input}
-              placeholder="Ім'я"
-              type="name"
-            />
-          )}
-          <button
-            style={{
-              ...authModalStyles.button,
-              background: isHovered
-                ? "linear-gradient(135deg, rgb(230, 155, 211), rgb(214, 163, 201))"
-                : "linear-gradient(135deg, rgb(214, 163, 201), rgb(230, 155, 211))",
-              boxShadow: isHovered
-                ? "0px 4px 10px rgba(230, 155, 211, 0.3)"
-                : "none",
+            onSubmit={async (values, { resetForm }) => {
+              try {
+                const formData = new FormData();
+                formData.append("name", values.name);
+                formData.append("email", values.email);
+                formData.append("password", values.password);
+                await signup('',formData)
+                resetForm();
+              } catch (error) {
+                console.log(error);
+              }
             }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
           >
-            {modalAuth === "register" ? "Реєстрація" : "Увійти"}
-          </button>
-        </form>
+            <Form style={authModalStyles.form}>
+              <Field
+                id="name"
+                style={authModalStyles.input}
+                name="name"
+                placeholder="Jane"
+                type="name"
+              />
+              <Field
+                style={{
+                  ...authModalStyles.input,
+                  border: isFocused
+                    ? "2px solid rgb(208, 95, 180)"
+                    : "2px solid rgba(208, 95, 180, 0.6)",
+                  boxShadow: isFocused
+                    ? "0px 4px 10px rgba(208, 95, 180, 0.3)"
+                    : "none",
+                }}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                id="email"
+                name="email"
+                placeholder="jane@acme.com"
+                type="email"
+              />
+              <Field
+                style={authModalStyles.input}
+                id="password"
+                name="password"
+                placeholder="Password"
+                type="password"
+              />
+
+              <button
+                type="submit"
+                style={{
+                  ...authModalStyles.button,
+                  background: isHovered
+                    ? "linear-gradient(135deg, rgb(230, 155, 211), rgb(214, 163, 201))"
+                    : "linear-gradient(135deg, rgb(214, 163, 201), rgb(230, 155, 211))",
+                  boxShadow: isHovered
+                    ? "0px 4px 10px rgba(230, 155, 211, 0.3)"
+                    : "none",
+                }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                Реєстрація
+              </button>
+            </Form>
+          </Formik>
+        ) : (
+          <Formik // login form
+            initialValues={{
+              password: "",
+              email: "",
+            }}
+            onSubmit={async (values) => {
+              await new Promise((r) => setTimeout(r, 500));
+              alert(JSON.stringify(values, null, 2));
+            }}
+          >
+            <Form style={authModalStyles.form}>
+              <Field
+                style={{
+                  ...authModalStyles.input,
+                  border: isFocused
+                    ? "2px solid rgb(208, 95, 180)"
+                    : "2px solid rgba(208, 95, 180, 0.6)",
+                  boxShadow: isFocused
+                    ? "0px 4px 10px rgba(208, 95, 180, 0.3)"
+                    : "none",
+                }}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                id="email"
+                name="email"
+                placeholder="jane@acme.com"
+                type="email"
+              />
+              <Field
+                style={authModalStyles.input}
+                id="password"
+                name="password"
+                placeholder="Password"
+                type="password"
+              />
+
+              <button
+                type="submit"
+                style={{
+                  ...authModalStyles.button,
+                  background: isHovered
+                    ? "linear-gradient(135deg, rgb(230, 155, 211), rgb(214, 163, 201))"
+                    : "linear-gradient(135deg, rgb(214, 163, 201), rgb(230, 155, 211))",
+                  boxShadow: isHovered
+                    ? "0px 4px 10px rgba(230, 155, 211, 0.3)"
+                    : "none",
+                }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                Увійти
+              </button>
+            </Form>
+          </Formik>
+        )}
       </Modal>
     </>
   );
