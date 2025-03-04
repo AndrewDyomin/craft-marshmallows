@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { View } from "./components/view";
 
 export default function Home() {
   return (
@@ -9,6 +10,12 @@ export default function Home() {
           <div className={styles.container}>
             <h2>Про нас</h2>
             <p>Ми виготовляємо найніжніший зефір на замовлення з натуральних інгредієнтів. Гарантуємо якість і незабутній смак!</p>
+          </div>
+        </section>
+
+        <section>
+          <div className={styles.view}>
+            <View />
           </div>
         </section>
 

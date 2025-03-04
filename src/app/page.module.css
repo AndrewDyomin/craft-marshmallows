@@ -21,6 +21,11 @@
   border-radius: 2px;
 }
 
+.view {
+  width: 50%;
+  margin: 0 auto;
+}
+
 .hero-img {
   display: block;
   width: 100%;
