@@ -25,7 +25,6 @@ export const View = () => {
       data-draggable="true"
       data-drag-speed="100"
       data-autoplay="true"
-      // data-spin-reverse="true"
     />
   );
 };

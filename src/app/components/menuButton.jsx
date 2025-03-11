@@ -20,6 +20,7 @@ const customStyles = {
     gap: "30px",
   },
   menuButton: {
+    color: "black",
     background: "transparent",
     border: "none",
     width: "60px",
@@ -38,6 +39,10 @@ const customStyles = {
     display: "grid",
     gap: "15px",
     fontSize: "16px",
+  },
+
+  authLink: {
+    cursor: "pointer",
   },
 };
 
@@ -131,6 +136,7 @@ export default function MenuButton() {
           <nav>
             <ul style={customStyles.authNav}>
               <li
+                style={customStyles.authLink}
                 onClick={() => {
                   setIsOpen(false);
                   setModalAuth("login");
@@ -139,6 +145,7 @@ export default function MenuButton() {
                 Увійти
               </li>
               <li
+                style={customStyles.authLink}
                 onClick={() => {
                   setIsOpen(false);
                   setModalAuth("register");

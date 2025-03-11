@@ -1,4 +1,3 @@
-import { MONGO_CLIENT_EVENTS } from "mongodb";
 import clientPromise from ".";
 
 let client;
